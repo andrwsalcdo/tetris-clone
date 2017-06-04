@@ -28,9 +28,15 @@ function drawMatrix(matrix, offset) {
         });
     }); 
 }
+
+function update() {
+    draw(); //moves the pieces 
+    requestAnimationFrame(update); 
+}
+
 const player = {
     pos: {x: 5, y: 5}, 
     matrix
 }
 
-draw(); 
+update(); //iniatializes the game. 
