@@ -3,9 +3,6 @@ const context = canvas.getContext('2d');
 
 context.scale(20,20); //scale items 20x. 
 
-context.fillStyle = '#000'; 
-context.fillRect(0, 0, canvas.width, canvas.height); 
-
 const matrix = [
     [0,0,0], 
     [1,1,1], 
@@ -13,6 +10,9 @@ const matrix = [
 ]; 
 
 function draw() {
+    context.fillStyle = '#000'; 
+    context.fillRect(0, 0, canvas.width, canvas.height); 
+    
     drawMatrix(player.matrix, player.pos); 
 }
 
