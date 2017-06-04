@@ -24,5 +24,9 @@ function drawMatrix(matrix, offset) {
         });
     }); 
 }
+const player = {
+    pos: {x: 5, y: 5}, 
+    matrix
+}
 
-drawMatrix(matrix, {x: 5, y: 5}); 
+drawMatrix(player.matrix, player.pos); 
