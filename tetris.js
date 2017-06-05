@@ -29,7 +29,11 @@ function drawMatrix(matrix, offset) {
     }); 
 }
 
-function update() {
+let lastTime = 0; 
+function update(time = 0) {
+    const deltaTime = time - lastTime; 
+    lastTime = time; 
+    
     draw(); //moves the pieces 
     requestAnimationFrame(update); 
 }
