@@ -3,11 +3,20 @@ const context = canvas.getContext('2d');
 
 context.scale(20,20); //scale items 20x. 
 
-const matrix = [
-            [0,0,0], 
-            [1,1,1], 
-            [0,1,0],
-]; 
+function arenaSweep() {
+   outer: for (let y = arena.length - 1; y > 0; --y) {
+        for (let x = 0; x < arena[y].length; ++x) {
+            if (arena[y][x] === 0) {
+                continue outer; 
+            }
+        }
+        //clear row, replaces it with empty row
+        const row = arena.splice(y, 1)[0].fill(0);
+        // puts row at the top of the arena
+        arena.unshift(row); 
+        ++y; 
+    }
+}
 
 function collide(arena, player) {
     const [m, o] = [player.matrix, player.pos]; 
@@ -116,6 +125,7 @@ function playerDrop() {
         player.pos.y--; 
         merge(arena, player); 
         playerReset(); // back to the top. 
+        arenaSweep(); 
     }
     dropCounter = 0; // u want a drop delay after press down. 
 }
