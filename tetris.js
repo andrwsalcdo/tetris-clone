@@ -37,6 +37,16 @@ function drawMatrix(matrix, offset) {
     }); 
 }
 
+function merge(arena, player) {
+    player.matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                arena[y + player.pos.y][x + player.pos.x] = value; 
+            }
+        });
+    });
+}
+
 function playerDrop() {
     player.pos.y++;
     dropCounter = 0; // u want a drop delay after press down. 
