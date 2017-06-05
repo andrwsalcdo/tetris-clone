@@ -64,6 +64,23 @@ function merge(arena, player) {
     });
 }
 
+function rotate(matrix, direction) {
+    for (let y=0; y < matrix.length; ++y) {
+        for (let x=0; x < y; ++x) {
+            // deconstructing to switch matrix values and rotate
+            [ 
+                matrix[x][y],
+                matrix[y[x]]
+            ] = [
+                matrix[y][x], 
+                matrix[x][y]
+            ]; 
+        }
+    }
+    if (direction > 0) { matrix.forEach(row => row.reverse()); }
+    else { matrix.reverse();  }
+}
+
 function playerDrop() {
     player.pos.y++;
     if (collide(arena, player)) {
