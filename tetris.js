@@ -64,23 +64,6 @@ function merge(arena, player) {
     });
 }
 
-function rotate(matrix, direction) {
-    for (let y=0; y < matrix.length; ++y) {
-        for (let x=0; x < y; ++x) {
-            // deconstructing to switch matrix values and rotate
-            [ 
-                matrix[x][y],
-                matrix[y[x]]
-            ] = [
-                matrix[y][x], 
-                matrix[x][y]
-            ]; 
-        }
-    }
-    if (direction > 0) { matrix.forEach(row => row.reverse()); }
-    else { matrix.reverse();  }
-}
-
 function playerDrop() {
     player.pos.y++;
     if (collide(arena, player)) {
@@ -94,6 +77,31 @@ function playerDrop() {
 function playerMove(direction) {
     player.pos.x += direction; 
     if(collide(arena, player)) { player.pos.x -= direction; }
+}
+
+
+function rotate(matrix, direction) {
+    for (let y=0; y < matrix.length; ++y) {
+        for (let x=0; x < y; ++x) {
+            // deconstructing to switch matrix values and rotate
+            [ 
+                matrix[x][y],
+                matrix[y][x]
+            ] = [
+                matrix[y][x], 
+                matrix[x][y]
+            ]; 
+        }
+    }
+    if (direction > 0) { 
+        matrix.forEach(row => row.reverse());
+    } else { 
+        matrix.reverse();  
+    }
+}
+
+function playerRotate(direction) {
+    rotate(player.matrix, direction); 
 }
 
 let dropCounter = 0; 
@@ -123,11 +131,15 @@ const player = {
 
 document.addEventListener('keydown', event => {
     if ( event.keyCode === 37) {
-        playerMove(-1);
+        playerMove(-1); // left arrow
     } else if (event.keyCode === 39) {
-        playerMove(+1);
+        playerMove(+1); // right arrow
     } else if (event.keyCode === 40) {
-        playerDrop(); 
+        playerDrop(); // down arrow
+    } else if (event.keyCode === 81) {
+        playerRotate(-1); // Q
+    } else if (event.keyCode === 87) {
+        playerRotate(1); // W
     }
     
 }); 
