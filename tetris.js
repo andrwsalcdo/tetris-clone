@@ -51,4 +51,17 @@ const player = {
     matrix
 }
 
+document.addEventListener('keydown', event => {
+    // console.log(event);
+    if ( event.keyCode === 37) {
+        player.pos.x--; 
+    } else if (event.keyCode === 39) {
+        player.pos.x++; 
+    } else if (event.keyCode === 40) {
+        player.pos.y++;
+        dropCounter = 0;  
+    }
+    
+}); 
+
 update(); //iniatializes the game. 
