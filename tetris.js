@@ -4,6 +4,7 @@ const context = canvas.getContext('2d');
 context.scale(20,20); //scale items 20x. 
 
 function arenaSweep() {
+    let rowCount = 1; 
    outer: for (let y = arena.length - 1; y > 0; --y) {
         for (let x = 0; x < arena[y].length; ++x) {
             if (arena[y][x] === 0) {
@@ -15,6 +16,9 @@ function arenaSweep() {
         // puts row at the top of the arena
         arena.unshift(row); 
         ++y; 
+
+        player.score += rowCount * 10; 
+        rowCount *= 2; 
     }
 }
 
@@ -126,6 +130,7 @@ function playerDrop() {
         merge(arena, player); 
         playerReset(); // back to the top. 
         arenaSweep(); 
+        updateScore(); 
     }
     dropCounter = 0; // u want a drop delay after press down. 
 }
@@ -144,6 +149,8 @@ function playerReset() {
     //clear arena, or game over, on instant collison
     if(collide(arena, player)) {
         arena.forEach(row => row.fill(0)); 
+        player.score = 0; 
+        updateScore(); 
     }
 }
 
@@ -199,6 +206,10 @@ function update(time = 0) {
     requestAnimationFrame(update); 
 }
 
+function updateScore() {
+    document.getElementById('score').innerText = player.score; 
+}
+
 const colors = [
     null, 
       '#FF0D72',
@@ -212,8 +223,9 @@ const colors = [
 const arena = createMatrix(12, 20); 
 
 const player = {
-    pos: {x: 5, y: 5}, 
-    matrix: createPiece('T')
+    pos: {x: 0, y: 0}, 
+    matrix: null, 
+    score: 0, 
 }
 
 document.addEventListener('keydown', event => {
@@ -231,4 +243,6 @@ document.addEventListener('keydown', event => {
     
 }); 
 
+playerReset(); 
+updateScore(); 
 update(); //iniatializes the game. 
