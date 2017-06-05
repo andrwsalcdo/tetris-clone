@@ -28,12 +28,20 @@ function drawMatrix(matrix, offset) {
         });
     }); 
 }
+let dropCounter = 0; 
+let dropInterval = 1000; // drop pieces every 1 sec 
 
 let lastTime = 0; 
 function update(time = 0) {
     const deltaTime = time - lastTime; 
     lastTime = time; 
-    
+
+    dropCounter += deltaTime; 
+    if (dropCounter > dropInterval) {
+        player.pos.y++; 
+        dropCounter = 0; 
+    } // this is the drop piece movment 
+
     draw(); //moves the pieces 
     requestAnimationFrame(update); 
 }
