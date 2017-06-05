@@ -4,9 +4,9 @@ const context = canvas.getContext('2d');
 context.scale(20,20); //scale items 20x. 
 
 const matrix = [
-    [0,0,0], 
-    [1,1,1], 
-    [0,1,0],
+            [0,0,0], 
+            [1,1,1], 
+            [0,1,0],
 ]; 
 
 function collide(arena, player) {
@@ -30,6 +30,52 @@ function createMatrix(w, h) {
         matrix.push(new Array(w).fill(0));
     }
     return matrix; 
+}
+
+function createPiece(type) {
+    if (type === 'T') {
+        return [
+            [0,0,0], 
+            [1,1,1], 
+            [0,1,0],
+        ]; 
+    } else if (type === 'O') {
+        return [
+            [1,1],
+            [1,1],
+        ];
+    } else if (type == 'L') {
+        return [
+            [0,1,0],
+            [0,1,0],
+            [0,1,1],
+        ];
+    } else if (type == 'J') {
+        return [
+            [0,1,0],
+            [0,1,0],
+            [1,1,0],
+        ];
+    } else if (type == 'I') {
+        return [
+            [0,1,0,0],
+            [0,1,0,0],
+            [0,1,0,0],
+            [0,1,0,0],            
+        ];
+    } else if (type == 'S') {
+        return [
+            [0,1,1],
+            [1,1,0],
+            [0,0,0],           
+        ];
+    } else if (type == 'Z') {
+        return [
+            [1,1,0],
+            [0,1,1],
+            [0,0,0],           
+        ];
+    }
 }
 
 function draw() {
@@ -137,7 +183,7 @@ const arena = createMatrix(12, 20);
 
 const player = {
     pos: {x: 5, y: 5}, 
-    matrix
+    matrix: createPiece('T')
 }
 
 document.addEventListener('keydown', event => {
