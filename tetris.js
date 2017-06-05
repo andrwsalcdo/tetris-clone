@@ -9,6 +9,14 @@ const matrix = [
     [0,1,0],
 ]; 
 
+function createMatrix(w, h) {
+    const matrix = []; 
+    while(h--) {
+        matrix.push(new Array(w).fill(0));
+    }
+    return matrix; 
+}
+
 function draw() {
     context.fillStyle = '#000'; 
     context.fillRect(0, 0, canvas.width, canvas.height); 
@@ -50,6 +58,9 @@ function update(time = 0) {
     draw(); //moves the pieces 
     requestAnimationFrame(update); 
 }
+
+const arena = createMatrix(12, 20); 
+
 
 const player = {
     pos: {x: 5, y: 5}, 
